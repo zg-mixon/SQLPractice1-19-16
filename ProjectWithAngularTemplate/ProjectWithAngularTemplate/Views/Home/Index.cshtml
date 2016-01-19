@@ -1,0 +1,16 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" ng-app="ProjectWithAngularTemplate">
+<head>
+    <title></title>
+    <!--Bootstrap Dependency-->
+    @Styles.Render("~/Content/css")
+    <!--Loads all of our angular dependencies-->
+    @Scripts.Render("~/angular/core")
+    <!--Loads all of our angular controllers-->
+    @Scripts.Render("~/angular/app")
+</head>
+<body class="container">
+
+    <ng-view></ng-view>
+
+</body>
+</html>
