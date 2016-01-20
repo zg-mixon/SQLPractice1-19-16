@@ -1,0 +1,20 @@
+﻿<div class="row">
+    <div class="row">
+        <input class="col-md-6" ng-model="controller.titleSearch" placeholder="Title Search"/>
+        <input class="col-md-6" ng-model="controller.authorSearch" placeholder="Author Search" />
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+            </tr>
+            <tr ng-repeat="book in controller.books">
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.isbn}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
