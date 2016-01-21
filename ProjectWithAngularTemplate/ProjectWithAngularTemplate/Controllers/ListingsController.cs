@@ -12,11 +12,13 @@ namespace ProjectWithAngularTemplate.Controllers
     {
         private ListingRepository _repo;
 
-        public ListingsController(ListingRepository repo) {
+        public ListingsController(ListingRepository repo)
+        {
             _repo = repo;
         }
 
-        public IList<Listing> Get() {
+        public IList<Listing> Get()
+        {
             return _repo.List();
         }
 
@@ -27,18 +29,29 @@ namespace ProjectWithAngularTemplate.Controllers
         }
 
         //Create
-        public IHttpActionResult Post (Listing newListing) {
-            if (ModelState.IsValid) {
-                if (_repo.Get(newListing.Id) != null) {
+        public IHttpActionResult Post(Listing newListing)
+        {
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    _repo.Add(newListing);
+                    _repo.SaveChanges();
                     return Created("/api/listing/" + newListing.Id, newListing);
-            }
-                return InternalServerError();
+                }
+                catch
+                {
+                    return InternalServerError();
+                }
             }
             return BadRequest();
+
         }
 
+
         //Update
-        public IHttpActionResult Post (int id, Listing updates)
+        public IHttpActionResult Post(int id, Listing updates)
         {
             if (ModelState.IsValid)
             {
@@ -52,22 +65,26 @@ namespace ProjectWithAngularTemplate.Controllers
 
             return BadRequest(ModelState);
         }
-        
+
 
 
         public IHttpActionResult Delete(int id)
         {
             try
             {
-                _repo.Delete(id);
-                _repo.SaveChanges();
-                return Ok();
+                var dbItem = _repo.Get(id);
+                if (dbItem != null)
+                {
+                    _repo.Delete(dbItem);
+                    _repo.SaveChanges();
+                    return Ok();
+                }
+                return BadRequest();
             }
-            catch {
-                
+            catch
+            {
+                return InternalServerError();
             }
-                    
-            return BadRequest();
         }
 
     }

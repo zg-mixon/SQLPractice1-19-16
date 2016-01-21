@@ -11,6 +11,7 @@ namespace ProjectWithAngularTemplate.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Models;
+    using System.Data.Entity;
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -61,7 +62,7 @@ namespace ProjectWithAngularTemplate.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<DbContext>().To<ApplicationDbContext>().InRequestScope();
         }        
     }
 }
